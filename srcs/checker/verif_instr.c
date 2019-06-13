@@ -70,3 +70,14 @@ int		ft_verif_rr(char c, t_lst_instr *instr)
 		return (0);
 	return (1);
 }
+
+int		ft_verif_debut(t_save save, t_lst_instr *new)
+{
+	if (save.str[0] == 's')
+		return (ft_verif_s(save.str[1], new));
+	else if (save.str[0] == 'p')
+		return (ft_verif_p(save.str[1], new));
+	else if (save.str[0] == 'r')
+		return (ft_verif_r(save.str[1], new));
+	return (0);
+}

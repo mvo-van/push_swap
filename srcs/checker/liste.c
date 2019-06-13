@@ -29,7 +29,7 @@ t_lst_gp		*ft_creat_gp(t_lst_gp *lst_nb, int i, int size)
 	return (new);
 }
 
-t_lst_instr		*ft_creat_instr(t_save  save, t_lst_instr *lst_instr)
+t_lst_instr		*ft_creat_instr(t_save save, t_lst_instr *lst_instr)
 {
 	t_lst_instr		*new;
 	int				ret;
@@ -42,14 +42,7 @@ t_lst_instr		*ft_creat_instr(t_save  save, t_lst_instr *lst_instr)
 		new->flag = 0;
 		new->prev = lst_instr;
 		if (ft_strlen(save.str) == 2)
-		{
-			if (save.str[0] == 's')
-				ret = ft_verif_s(save.str[1], new);
-			else if (save.str[0] == 'p')
-				ret = ft_verif_p(save.str[1], new);
-			else if (save.str[0] == 'r')
-				ret = ft_verif_r(save.str[1], new);
-		}
+			ret = ft_verif_debut(save, new);
 		else if (save.str[0] == 'r' && save.str[1] == 'r')
 			ret = ft_verif_rr(save.str[2], new);
 		new->next = NULL;
