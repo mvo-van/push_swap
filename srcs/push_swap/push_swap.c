@@ -13,6 +13,8 @@
 #include "push_swap.h"
 #include <stdio.h>
 
+t_ptr_list    ft_fusion_gp_droite(t_ptr_list list);
+
 int main(int ac, char **av)
 {
     t_ptr_list  list;
@@ -44,9 +46,15 @@ t_ptr_list    ft_push_swap(t_ptr_list list)
     list.instr = NULL;
     while ((nb_gp = ft_make_groupe(list.lst_a)) > 1)
     {   
+        
         list = ft_divise_gp(list, nb_gp);
-        list = ft_fusion_gp(list);
-    }                                 
+        if(list.nb_gp > 2)
+        {
+            list = ft_fusion_gp_droite(list);
+            ft_make_groupe(list.lst_b);
+        }
+    }
+    list = ft_fusion_gp(list);
     return(list);
 }
 
@@ -93,7 +101,7 @@ t_ptr_list    ft_divise_gp(t_ptr_list list, int nb_gp)
     list = ft_goupe_fusion(list);                                           
     if((list.nb_gp < 2))                                                    
         return(list);                                                       
-    while(i <= (list.nb_gp / 2))
+    while(i <= 1)
     {
         list.lst_a = ft_lst_next_gp(list.lst_a);
         groupe = list.lst_a->groupe;
@@ -104,7 +112,7 @@ t_ptr_list    ft_divise_gp(t_ptr_list list, int nb_gp)
         {
             list.lst_a = list.lst_a->prev;
             list = ft_makep_gp(FLAG_PB, list);
-            list.instr = ft_creat_instr(FLAG_PB,list.instr);  
+            list.instr = ft_creat_instr(FLAG_PB,list.instr);
             list.lst_a = ft_lst_next_gp(list.lst_a);
         }
         i++;
@@ -166,6 +174,67 @@ t_ptr_list    ft_fusion_gp(t_ptr_list list)
             }
             list.lst_b = ft_lst_next_gp(list.lst_b);
             list.lst_a = ft_lst_prev_gp(list.lst_a);
+        }
+    }
+    return(list);
+}
+
+t_ptr_list    ft_fusion_gp_droite(t_ptr_list list)
+{
+    int fin_a;
+    int fin_b;
+
+    list.lst_a = ft_lst_next_gp(list.lst_a);
+    list.lst_b = ft_lst_prev_gp(list.lst_b);
+    //while (list.lst_b)
+    
+    if(list.lst_b)
+    {
+        fin_a = 1;
+        fin_b = 1;
+        while (fin_a || fin_b)
+        {
+            if(!fin_a)
+            {
+                while (fin_b)
+                {
+                    if(list.lst_b->grand)
+                        fin_b = 0;
+                    ft_makerr_gp(FLAG_RRB, list.lst_b, NULL);
+                    list.instr = ft_creat_instr(FLAG_RRB, list.instr);
+                    list.lst_b = ft_lst_prev_gp(list.lst_b);
+                }
+            }
+            else if(!fin_b)
+            {
+                while (fin_a)
+                {
+                    if(list.lst_a->grand)
+                        fin_a = 0;
+                    list = ft_makep_gp(FLAG_PB, list);
+                    list.instr = ft_creat_instr(FLAG_PB, list.instr);
+                    list.lst_a = ft_lst_next_gp(list.lst_a);
+                }
+            }
+            else
+            {
+                if(list.lst_a->nb < list.lst_b->nb)
+                {
+                    if(list.lst_a->grand)
+                        fin_a = 0;
+                    list = ft_makep_gp(FLAG_PB, list);
+                    list.instr = ft_creat_instr(FLAG_PB, list.instr);
+                }
+                else
+                {
+                    if(list.lst_b->grand)
+                        fin_b = 0;
+                    ft_makerr_gp(FLAG_RRB, list.lst_b, NULL);
+                    list.instr = ft_creat_instr(FLAG_RRB, list.instr);                    
+                }
+            }
+        //    list.lst_b = ft_lst_next_gp(list.lst_b);
+        //    list.lst_a = ft_lst_prev_gp(list.lst_a);
         }
     }
     return(list);

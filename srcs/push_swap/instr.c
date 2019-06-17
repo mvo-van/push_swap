@@ -50,6 +50,7 @@ t_lst_instr     *ft_prev_instr(t_lst_instr *instr)
         instr = instr->prev;
     return(instr);
 }
+
 t_lst_instr     *ft_sup_P(t_lst_instr *instr)
 {
     int             pa;
@@ -63,7 +64,7 @@ t_lst_instr     *ft_sup_P(t_lst_instr *instr)
     {
         pa = 0;
         pb = 0;
-        while (ptr && (ptr->flag & FLAG_RRA || ptr->flag & FLAG_SA))
+        while (ptr && (ptr->flag & FLAG_RRA || ptr->flag & FLAG_SA || ptr->flag & FLAG_RRB))
             ptr = ptr->next;
         while (ptr && (ptr->flag & FLAG_PA || ptr->flag & FLAG_PB))
         {   
@@ -107,6 +108,8 @@ t_lst_instr    *ft_print_instr(t_lst_instr *instr)
             write(1,"pb\n",3);
         else if(instr->flag & FLAG_SA)
             write(1,"sa\n",3);
+        else if(instr->flag & FLAG_RRB)
+            write(1,"rrb\n",3);
         instr = instr->next;       
     }
     ft_free_instr(save, 0);
