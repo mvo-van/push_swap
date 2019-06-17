@@ -48,10 +48,12 @@ t_ptr_list    ft_push_swap(t_ptr_list list)
     {   
         
         list = ft_divise_gp(list, nb_gp);
+        list = ft_goupe_fusion(list);
+        nb_gp = ft_make_groupe(list.lst_a);
         if(list.nb_gp > 2)
         {
             list = ft_fusion_gp_droite(list);
-            ft_make_groupe(list.lst_b);
+            ft_make_groupe_b(list.lst_b);
         }
     }
     list = ft_fusion_gp(list);
@@ -86,6 +88,38 @@ int     ft_make_groupe(t_lst_gp *lst_a)
             ptr = ptr->next;
         }
         ptr->petit = 1;
+    }   
+    return (i);
+}
+
+int     ft_make_groupe_b(t_lst_gp *lst_b)
+{
+    int         i;
+    t_lst_gp    *ptr;
+ 
+    i = 0;
+    ptr = lst_b;
+    ptr = ft_lst_prev_gp(ptr);
+    if(ptr)
+    {
+        ft_lst_zero(ptr);
+        i++;
+        ptr->petit = 1;
+        ptr->groupe = i;
+        while (ptr && ptr->next)
+        {   
+            if(ptr->nb < ptr->next->nb)
+                ptr->next->groupe = ptr->groupe;
+            else
+            {
+                ptr->next->groupe = ptr->groupe + 1;
+                ptr->next->petit = 1;
+                ptr->grand = 1;
+                i++;
+            }
+            ptr = ptr->next;
+        }
+        ptr->grand = 1;
     }   
     return (i);
 }
@@ -169,8 +203,8 @@ t_ptr_list    ft_fusion_gp(t_ptr_list list)
                     if(list.lst_b->petit)
                         fin_b = 0;
                     list = ft_makep_gp(FLAG_PA, list);
-                    list.instr = ft_creat_instr(FLAG_PA, list.instr);                    
-                }
+                    list.instr = ft_creat_instr(FLAG_PA, list.instr);            
+                }        
             }
             list.lst_b = ft_lst_next_gp(list.lst_b);
             list.lst_a = ft_lst_prev_gp(list.lst_a);
@@ -233,8 +267,8 @@ t_ptr_list    ft_fusion_gp_droite(t_ptr_list list)
                     list.instr = ft_creat_instr(FLAG_RRB, list.instr);                    
                 }
             }
-        //    list.lst_b = ft_lst_next_gp(list.lst_b);
-        //    list.lst_a = ft_lst_prev_gp(list.lst_a);
+            list.lst_a = ft_lst_next_gp(list.lst_a);
+            list.lst_b = ft_lst_prev_gp(list.lst_b);
         }
     }
     return(list);

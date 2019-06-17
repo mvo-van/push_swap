@@ -109,7 +109,7 @@ t_lst_instr    *ft_print_instr(t_lst_instr *instr)
         else if(instr->flag & FLAG_SA)
             write(1,"sa\n",3);
         else if(instr->flag & FLAG_RRB)
-            write(1,"rrb\n",3);
+            write(1,"rrb\n",4);
         instr = instr->next;       
     }
     ft_free_instr(save, 0);
