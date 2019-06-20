@@ -58,6 +58,7 @@ typedef struct s_ptr_list
 
 t_ptr_list      ft_push_swap(t_ptr_list list);
 int             ft_make_groupe(t_lst_gp *lst_a);
+int             ft_make_groupe_b(t_lst_gp *lst_b);
 t_ptr_list      ft_divise_gp(t_ptr_list list, int nb_gp);
 t_ptr_list      ft_fusion_gp(t_ptr_list list);
 void            ft_makes_gp(int flag,t_lst_gp *lst_a,t_lst_gp *lst_b);

@@ -15,6 +15,29 @@
 
 t_ptr_list    ft_fusion_gp_droite(t_ptr_list list);
 
+int ft_printf_lst(t_ptr_list list)
+{
+    t_lst_gp    *lst_a = list.lst_a;
+    t_lst_gp    *lst_b = list.lst_b;
+
+    printf("\nAAAAAAAA\n");
+    lst_a = ft_lst_next_gp(lst_a);
+    lst_b = ft_lst_next_gp(lst_b);
+    while (lst_a)
+    {
+        printf("%d      p%d     g%d\n",lst_a->nb,lst_a->petit,lst_a->grand);
+        lst_a = lst_a->prev;
+    }
+    printf("\nBBBBBBBB\n");
+    while (lst_b)
+    {
+        printf("%d      p%d     g%d\n",lst_b->nb,lst_b->petit,lst_b->grand);
+        lst_b = lst_b->prev;
+    }    
+    return(0);
+}
+
+
 int main(int ac, char **av)
 {
     t_ptr_list  list;
@@ -35,6 +58,7 @@ int main(int ac, char **av)
     ft_verif_arg(av, ac);
     list.lst_a = ft_creat_lst_gp(av, ac, list.lst_a);
     list = ft_push_swap(list);
+    ft_printf_lst(list);
     list.instr = ft_print_instr(list.instr);
     return(0);
 }
@@ -159,6 +183,8 @@ t_ptr_list    ft_fusion_gp(t_ptr_list list)
     int fin_a;
     int fin_b;
 
+    ft_make_groupe(list.lst_a);
+    ft_make_groupe_b(list.lst_b);
     list.lst_b = ft_lst_next_gp(list.lst_b);
     list.lst_a = ft_lst_prev_gp(list.lst_a);
     while (list.lst_b)
@@ -182,6 +208,7 @@ t_ptr_list    ft_fusion_gp(t_ptr_list list)
             {
                 while (fin_a)
                 {
+                    //printf("petitttttt   %d\n", list.lst_a->petit);
                     if(list.lst_a->petit)
                         fin_a = 0;
                     ft_makerr_gp(FLAG_RRA, list.lst_a, NULL);
@@ -234,7 +261,8 @@ t_ptr_list    ft_fusion_gp_droite(t_ptr_list list)
                 {
                     if(list.lst_b->grand)
                         fin_b = 0;
-                    ft_makerr_gp(FLAG_RRB, list.lst_b, NULL);
+                    //printf("RRBBBBBB\n");
+                    ft_makerr_gp(FLAG_RRB, NULL, list.lst_b);
                     list.instr = ft_creat_instr(FLAG_RRB, list.instr);
                     list.lst_b = ft_lst_prev_gp(list.lst_b);
                 }
@@ -263,7 +291,8 @@ t_ptr_list    ft_fusion_gp_droite(t_ptr_list list)
                 {
                     if(list.lst_b->grand)
                         fin_b = 0;
-                    ft_makerr_gp(FLAG_RRB, list.lst_b, NULL);
+                    //printf("RRBBBBBB\n");
+                    ft_makerr_gp(FLAG_RRB, NULL, list.lst_b);
                     list.instr = ft_creat_instr(FLAG_RRB, list.instr);                    
                 }
             }

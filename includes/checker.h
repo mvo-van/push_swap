@@ -83,4 +83,5 @@ void       ft_reduce_makerr(t_lst_gp *lst);
 t_ptr_list ft_reduce_p(int flag, t_lst_gp *lst_don, t_lst_gp *lst_rec, t_ptr_list list);
 int		   ft_atoi_verif_arg(const char *str);
 t_lst_gp   *ft_creat_lst_gp(char **av,int ac,t_lst_gp *lst_nb);
+int		ft_verif_debut(t_save save, t_lst_instr *new);
 #endif
