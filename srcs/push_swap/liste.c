@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvo-van- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/08 10:37:30 by mvo-van-          #+#    #+#             */
-/*   Updated: 2019/06/08 10:37:33 by mvo-van-         ###   ########.fr       */
+/*   Created: 2019/05/24 17:48:48 by mvo-van-          #+#    #+#             */
+/*   Updated: 2019/05/24 17:48:58 by mvo-van-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_lst_gp    *ft_creat_gp(t_lst_gp *lst_nb, int i, int size)
         if (lst_nb)
             lst_nb->prev = new;
         new->groupe = 0;
+        new->piv = 0;
         new->petit = 0;
         new->grand = 0;
         new->next = lst_nb;
@@ -34,7 +35,7 @@ t_lst_gp    *ft_creat_gp(t_lst_gp *lst_nb, int i, int size)
 t_lst_instr    *ft_creat_instr(int  flag, t_lst_instr *lst_instr)
 {
     t_lst_instr    *new;
-    //printf("%d\n",flag);                                                ////////////////////////////////////
+    //printf("fdhjkhdfkjhfkjhd\n");
     if ((new = (t_lst_instr *)malloc(sizeof(t_lst_instr) * 1)))
     {
         if (lst_instr)

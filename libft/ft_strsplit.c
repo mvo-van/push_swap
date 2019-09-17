@@ -38,6 +38,5 @@ char		**ft_strsplit(char const *s, char c)
 		if (i != 0 && !(tab[j++] = ft_strsub(s, len - i, i)))
 			return (NULL);
 	}
-	tab[j] = NULL;
 	return (tab);
 }

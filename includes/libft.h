@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvo-van- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/08 10:39:28 by mvo-van-          #+#    #+#             */
-/*   Updated: 2019/06/08 10:39:30 by mvo-van-         ###   ########.fr       */
+/*   Created: 2018/11/11 18:13:17 by mvo-van-          #+#    #+#             */
+/*   Updated: 2018/11/28 16:59:46 by mvo-van-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include "get_next_line.h"
 
 typedef struct	s_list
 {
@@ -94,5 +93,5 @@ int				ft_abs(int n);
 int				ft_isspace(char c);
 size_t			ft_lstlen(t_list *lst);
 void			ft_sort_int(int *tab, size_t len);
-int				get_next_line(int fd, char **line);
+
 #endif
