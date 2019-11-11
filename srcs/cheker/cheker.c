@@ -89,7 +89,7 @@ t_lst_nb    *ft_cheker(t_lst_nb *lst_nb)
                 save.str[save.j] = '\0';
                 save.j = 0;
                 ptr_instr = ft_creat_instr(save, ptr_instr);
-                printf("%d\n",ptr_instr->flag);
+                //printf("%d\n",ptr_instr->flag);
             }
             save.i++;
         }

@@ -113,7 +113,7 @@ void    ft_makeRR(int flag,t_lst_nb *lst_a,t_lst_nb *lst_b)
             lst_a->next->prev = lst_a;
         }
     if(flag & FLAG_RRB)
-        if(lst_a && lst_b->prev)
+        if(lst_b && lst_b->prev)
         {
             save = lst_b;
             while (lst_b && lst_b->prev)
