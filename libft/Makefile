@@ -8,7 +8,6 @@ CC = clang
 
 SRC	= ft_atoi.c \
 	  ft_isdigit.c \
-	  get_next_line.c \
 	  ft_memcpy.c \
 	  ft_strcmp.c \
 	  ft_strncat.c \
@@ -72,8 +71,7 @@ SRC	= ft_atoi.c \
 	  ft_abs.c \
 	  ft_isspace.c \
 	  ft_lstlen.c \
-	  ft_sort_int.c \
-	  get_next_line.c
+	  ft_sort_int.c
 
 OBJ	= $(SRC:.c=.o)
 

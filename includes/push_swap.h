@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvo-van- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/08 10:39:44 by mvo-van-          #+#    #+#             */
-/*   Updated: 2019/06/08 10:39:47 by mvo-van-         ###   ########.fr       */
+/*   Created: 2019/05/24 17:50:39 by mvo-van-          #+#    #+#             */
+/*   Updated: 2019/05/24 17:50:41 by mvo-van-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,22 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define FLAG_SA (1 << 0)      
-# define FLAG_SB (1 << 1)      
-# define FLAG_PA (1 << 2)       
-# define FLAG_PB (1 << 3)      
-# define FLAG_RA (1 << 4)       
-# define FLAG_RB (1 << 5)       
-# define FLAG_RRA (1 << 6)      
-# define FLAG_RRB (1 << 7)      
-# define INT_MAX 2147483647
-# define INT_MIN -2147483648
+# define FLAG_SA (1 << 0)
+# define FLAG_SB (1 << 1)
+# define FLAG_PA (1 << 2)
+# define FLAG_PB (1 << 3)
+# define FLAG_RA (1 << 4)
+# define FLAG_RB (1 << 5)
+# define FLAG_RRA (1 << 6)
+# define FLAG_RRB (1 << 7)
 
-typedef struct s_lst_gp
+typedef struct s_lst_nb
 {
-    struct s_lst_gp *prev;
-    int             nb;
-    int             groupe;
-    int             petit;
-    int             grand;
-    int             size;
-    struct s_lst_gp *next;
-} t_lst_gp;
+    struct s_lst_nb *prev;
+    int             gp;
+    int                 nb;
+    struct s_lst_nb *next;
+} t_lst_nb;
 
 typedef struct s_lst_instr
 {
@@ -46,40 +41,75 @@ typedef struct s_lst_instr
     struct s_lst_instr  *next;
 }t_lst_instr;
 
-typedef struct s_ptr_list
+typedef struct s_ptr_lst
 {
-    t_lst_gp        *lst_a;
-    t_lst_gp        *lst_b;
-    t_lst_instr     *instr;
-    int             nb_gp;
-}t_ptr_list;
+    t_lst_nb    *lst_a;
+    t_lst_nb    *lst_b;
+    t_lst_instr *lst_flag;
+    int         *tab;
+}t_ptr_lst;
+
+typedef struct s_lst
+{
+    struct s_lst *prev;
+    t_lst_instr     *ptr;
+    struct s_lst *next;
+} t_lst;
+
+typedef struct s_ptr_lst_instr
+{
+    t_lst    *sa;
+    t_lst    *sb;
+    t_lst    *pa;
+    t_lst    *pb;
+    t_lst    *ra;
+    t_lst    *rb;
+    t_lst    *rra;
+    t_lst    *rrb;
+    t_lst_instr *lst;
+}t_ptr_lst_instr;
 
 
 
-t_ptr_list      ft_push_swap(t_ptr_list list);
-int             ft_make_groupe(t_lst_gp *lst_a);
-t_ptr_list      ft_divise_gp(t_ptr_list list, int nb_gp);
-t_ptr_list      ft_fusion_gp(t_ptr_list list);
-void            ft_makes_gp(int flag,t_lst_gp *lst_a,t_lst_gp *lst_b);
-t_ptr_list      ft_makep_gp(int flag,t_ptr_list list);
-void            ft_maker_gp(int flag,t_lst_gp *lst_a,t_lst_gp *lst_b);
-void            ft_makerr_gp(int flag,t_lst_gp *lst_a,t_lst_gp *lst_b);
-t_lst_gp        *ft_creat_gp(t_lst_gp *lst_nb, int i, int size);
-t_lst_instr     *ft_creat_instr(int  flag, t_lst_instr *lst_instr);
-t_lst_gp        *ft_lst_prev_gp(t_lst_gp *ptr);
-t_lst_gp        *ft_lst_next_gp(t_lst_gp *ptr);
-void            ft_lst_zero(t_lst_gp *lst_a);
-void            ft_verif_arg(char **av, int ac);
-t_lst_instr     *ft_sup_P(t_lst_instr *instr);
-t_lst_instr     *ft_print_instr(t_lst_instr *instr);
-void            ft_free_instr(t_lst_instr *ptr, int nb);
-t_lst_instr     *ft_prev_instr(t_lst_instr *instr);
-t_ptr_list      ft_goupe_fusion(t_ptr_list list);
-void            ft_reduce_makes(t_lst_gp *lst);
-void            ft_reduce_maker(t_lst_gp *lst);
-void            ft_reduce_makerr(t_lst_gp *lst);
-t_ptr_list      ft_reduce_p(int flag, t_lst_gp *lst_don, t_lst_gp *lst_rec, t_ptr_list list);
-int		        ft_atoi_verif_arg(const char *str);
-t_lst_gp        *ft_creat_lst_gp(char **av,int ac,t_lst_gp *lst_nb);
+char		**ft_strsplit2(char const *s, char c);
+int         ft_verif(int *tab, int x, char *str);
+int         ft_print_error();
+t_lst_nb    *ft_creat_lst_nb(t_lst_nb   *lst_nb, int i);
+t_lst_nb    *ft_lst_next_nb(t_lst_nb *ptr);
+t_lst_nb    *ft_lst_prev_nb(t_lst_nb *ptr);
+t_ptr_lst    ft_makeP_nb(int flag,t_ptr_lst list);
+void            ft_makeS_nb(int flag,t_lst_nb *lst_a,t_lst_nb *lst_b);
+void            ft_makeR_nb(int flag,t_lst_nb *lst_a,t_lst_nb *lst_b);
+void           ft_makeRR_nb(int flag,t_lst_nb *lst_a,t_lst_nb *lst_b);
+t_lst_instr    *ft_creat_lst_instr(t_lst_instr  *lst_instr, int flag);
+t_ptr_lst       ft_make_instr(t_ptr_lst ptr_lst, int flag);
+t_ptr_lst        ft_save_a2(t_ptr_lst ptr);
+t_ptr_lst        ft_save_a3(t_ptr_lst ptr);
+t_ptr_lst        ft_save_a(t_ptr_lst ptr, int cmp);
+t_ptr_lst    ft_save_b3(t_ptr_lst ptr);
+t_ptr_lst    ft_save_b(t_ptr_lst ptr, int cmp);
+int         ft_cmp_gp(t_lst_nb *lst);
+t_ptr_lst   ft_divise_avb(t_ptr_lst ptr,int *tab);
+t_ptr_lst   ft_divise_bva(t_ptr_lst ptr,int *tab);
+t_ptr_lst   ft_push_swap(t_ptr_lst ptr);
+void        ft_gp_zero(t_lst_nb *lst, int i);
+t_ptr_lst   ft_make_instr_times(t_ptr_lst ptr,int flag, int times);
+int         ft_odre(int a, int b, int c);
+
+t_lst_instr   *ft_opti_instr(t_lst_instr *lst);
+t_ptr_lst_instr ft_opti_RRB(t_ptr_lst_instr sav);
+t_ptr_lst_instr ft_opti_RRA(t_ptr_lst_instr sav);
+t_ptr_lst_instr ft_opti_RB(t_ptr_lst_instr sav);
+t_lst_instr *ft_lst_prev_instr(t_lst_instr *ptr);
+t_ptr_lst_instr     ft_sav_zero(t_lst_instr *lst);
+t_lst *ft_creat(t_lst *lst, t_lst_instr *instr);
+t_lst   *ft_free_lst(t_lst *lst);
+t_ptr_lst_instr     ft_opti_SA(t_ptr_lst_instr sav);
+t_ptr_lst_instr ft_opti_SB(t_ptr_lst_instr sav);
+t_ptr_lst_instr ft_opti_PA(t_ptr_lst_instr sav);
+t_ptr_lst_instr ft_opti_PB(t_ptr_lst_instr sav);
+t_ptr_lst_instr ft_opti_RA(t_ptr_lst_instr sav);
+t_lst_instr *ft_print_instr(t_lst_instr *instr);
+
 
 #endif
