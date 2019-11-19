@@ -6,122 +6,78 @@
 /*   By: mvo-van- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 17:24:55 by mvo-van-          #+#    #+#             */
-/*   Updated: 2019/05/07 17:24:57 by mvo-van-         ###   ########.fr       */
+/*   Updated: 2019/11/15 16:15:24 by mvo-van-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cheker.h"
+#include "../../includes/checker.h"
 
-void    ft_makeS(int flag,t_lst_nb *lst_a,t_lst_nb *lst_b)
+void		ft_makes_gp(int flag, t_lst_gp *lst_a, t_lst_gp *lst_b)
 {
-    int    tmp;
+	lst_a = ft_lst_prev_gp(lst_a);
+	lst_b = ft_lst_prev_gp(lst_b);
+	if (flag & FLAG_SA)
+		ft_reduce_makes(lst_a);
+	if (flag & FLAG_SB)
+		ft_reduce_makes(lst_b);
+}
 
-    if(flag & FLAG_SA)
-    {
-        while(lst_a && lst_a->next && lst_a->next->next)
-            lst_a = lst_a->next;
-        if(lst_a && lst_a->next)
-        {
-            tmp = lst_a->nb;
-            lst_a->nb = lst_a->next->nb;
-            lst_a->next->nb = tmp;
-        }
-    }
-    if(flag & FLAG_SB)
-    {
-        while(lst_b && lst_b->next && lst_b->next->next)
-            lst_b = lst_b->next;
-        if(lst_b && lst_b->next)
-        {
-            tmp = lst_b->nb;
-            lst_b->nb = lst_b->next->nb;
-            lst_b->next->nb = tmp;
-        }
-    }   
-}
-void    ft_makeP(int flag,t_lst_nb *lst_a,t_lst_nb *lst_b)
+t_ptr_list	ft_makep_gp(int flag, t_ptr_list list)
 {
-    t_lst_nb   *save;
-    
-    lst_a = ft_lst_next(lst_a);
-    lst_b = ft_lst_next(lst_b);
-    if(flag & FLAG_PA)
-        if(lst_b)
-        {
-            save = lst_b->prev;
-            if(lst_b->prev)
-                lst_b->prev->next = NULL;
-            lst_a->next = lst_b;
-            lst_b->prev = lst_a;
-            lst_b = save;
-        }
-    if(flag & FLAG_PB)
-        if(lst_a)
-        {
-            save = lst_a->prev;
-            if(lst_a->prev)
-                lst_a->prev->next = NULL;
-            lst_b->next = lst_a;
-            lst_a->prev = lst_b;
-            lst_a = save;
-        }
+	list.lst_a = ft_lst_next_gp(list.lst_a);
+	list.lst_b = ft_lst_next_gp(list.lst_b);
+	if (flag & FLAG_PA)
+		list = ft_reduce_makep(FLAG_PA, list.lst_b, list.lst_a, list);
+	if (flag & FLAG_PB)
+		list = ft_reduce_makep(FLAG_PB, list.lst_a, list.lst_b, list);
+	return (list);
 }
-void    ft_makeR(int flag,t_lst_nb *lst_a,t_lst_nb *lst_b)
-{
-    t_lst_nb    *save;
 
-    lst_a = ft_lst_prev(lst_a);
-    lst_b = ft_lst_prev(lst_b);
-    if(flag & FLAG_RA)
-        if(lst_a && lst_a->next)
-        {
-            save = lst_a;
-            while (lst_a && lst_a->next)
-                lst_a = lst_a->next;
-            lst_a->prev->next = NULL;
-            lst_a->prev = NULL;
-            lst_a->next = save;
-            lst_a->prev->next = lst_a;
-        }
-    if(flag & FLAG_RB)
-        if(lst_b && lst_b->next)
-        {
-            save = lst_b;
-            while (lst_b && lst_b->next)
-                lst_b = lst_b->next;
-            lst_b->prev->next = NULL;
-            lst_b->prev = NULL;
-            lst_b->next = save;
-            lst_b->prev->next = lst_b;
-        }
-}
-void    ft_makeRR(int flag,t_lst_nb *lst_a,t_lst_nb *lst_b)
+void		ft_maker_gp(int flag, t_lst_gp *lst_a, t_lst_gp *lst_b)
 {
-    t_lst_nb    *save;
-
-    lst_a = ft_lst_next(lst_a);
-    lst_b = ft_lst_next(lst_b);
-    if(flag & FLAG_RRA)
-        if(lst_a && lst_a->prev)
-        {
-            save = lst_a;
-            while (lst_a && lst_a->prev)
-                lst_a = lst_a->prev;
-            lst_a->next->prev = NULL;
-            lst_a->next = NULL;
-            lst_a->prev = save;
-            lst_a->next->prev = lst_a;
-        }
-    if(flag & FLAG_RRB)
-        if(lst_b && lst_b->prev)
-        {
-            save = lst_b;
-            while (lst_b && lst_b->prev)
-                lst_b = lst_b->prev;
-            lst_b->next->prev = NULL;
-            lst_b->next = NULL;
-            lst_b->prev = save;
-            lst_b->next->prev = lst_b;
-        }
+	lst_a = ft_lst_prev_gp(lst_a);
+	lst_b = ft_lst_prev_gp(lst_b);
+	if (flag & FLAG_RA)
+		ft_reduce_maker(lst_a);
+	if (flag & FLAG_RB)
+		ft_reduce_maker(lst_b);
 }
-//void    ft_lst_size(t_lst_nb lst_a, t_lst_nb lst_b, int size_a, int size_b)
+
+void		ft_makerr_gp(int flag, t_lst_gp *lst_a, t_lst_gp *lst_b)
+{
+	lst_a = ft_lst_next_gp(lst_a);
+	lst_b = ft_lst_next_gp(lst_b);
+	if (flag & FLAG_RRA)
+		ft_reduce_makerr(lst_a);
+	if (flag & FLAG_RRB)
+		ft_reduce_makerr(lst_b);
+}
+
+int			ft_verif_arg(int *tab, int x, char *str)
+{
+	long	i;
+	long	s;
+	long	nb;
+
+	nb = 0;
+	i = 0;
+	s = 1;
+	if (str[i] == '-')
+	{
+		s = -1;
+		i++;
+	}
+	while (str[i])
+	{
+		if ((str[i] < '0') || (str[i] > '9'))
+			return (0);
+		nb = nb * 10 + (str[i] - '0');
+		i++;
+	}
+	if ((nb * s < -2147483648) || (nb * s > 2147483647))
+		return (0);
+	while (--x > 0)
+		if (x > 0 && nb * s == tab[x - 1])
+			return (0);
+	return (1);
+}
