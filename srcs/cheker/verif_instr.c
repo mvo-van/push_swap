@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/checker.h"
+#include "checker.h"
 
 int		ft_verifs(char c, t_lst_instr *instr)
 {

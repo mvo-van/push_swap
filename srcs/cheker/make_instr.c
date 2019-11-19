@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/checker.h"
+#include "checker.h"
 
 void		ft_makes_gp(int flag, t_lst_gp *lst_a, t_lst_gp *lst_b)
 {

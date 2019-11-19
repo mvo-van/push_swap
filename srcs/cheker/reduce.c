@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/checker.h"
+#include "checker.h"
 
 void		ft_reduce_makes(t_lst_gp *lst)
 {

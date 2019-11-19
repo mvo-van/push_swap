@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/checker.h"
+#include "checker.h"
 
 t_lst_gp	*ft_creat_gp(t_lst_gp *lst_nb, int i, int size)
 {
