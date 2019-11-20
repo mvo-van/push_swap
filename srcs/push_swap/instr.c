@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   instr.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvo-van- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mvo-van- <mvo-van-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 17:08:05 by mvo-van-          #+#    #+#             */
-/*   Updated: 2019/11/14 17:28:28 by mvo-van-         ###   ########.fr       */
+/*   Updated: 2019/11/20 17:34:20 by mvo-van-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../includes/push_swap.h"
 
 t_lst_instr		*ft_lst_prev_instr(t_lst_instr *ptr)
 {

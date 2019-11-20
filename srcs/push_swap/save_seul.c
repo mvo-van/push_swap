@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../includes/push_swap.h"
 
 t_ptr_lst	ft_save_b3_seul(t_ptr_lst ptr)
 {

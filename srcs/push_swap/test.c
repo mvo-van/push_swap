@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
+#include "../../includes/push_swap.h"
+#include <stdio.h>
 t_ptr_lst		ft_divise_avb(t_ptr_lst ptr, int *tab)
 {
 	int		cmp;
@@ -19,9 +19,10 @@ t_ptr_lst		ft_divise_avb(t_ptr_lst ptr, int *tab)
 	int		nb_ra;
 
 	nb_ra = 0;
-	cmp = ft_cmp_gp(ptr.lst_a) + 1;
+	cmp = ft_cmp_gp(ptr.lst_a);
 	piv = tab[cmp / 2];
-	while (--cmp > 0)
+	//printf("piv : %d, tab %d", piv,tab[0]);
+	while (cmp > 0)
 	{
 		ptr.lst_a = ft_lst_next_nb(ptr.lst_a);
 		if (ptr.lst_a->nb < piv)
@@ -34,6 +35,7 @@ t_ptr_lst		ft_divise_avb(t_ptr_lst ptr, int *tab)
 			ptr = ft_make_instr(ptr, FLAG_RA);
 			nb_ra++;
 		}
+		cmp--;
 	}
 	nb_ra++;
 	while (--nb_ra > 0 && ft_cmp_lst_gp(ptr.lst_a))
@@ -63,23 +65,48 @@ t_ptr_lst		ft_divise_bva(t_ptr_lst ptr, int *tab)
 	return (ptr);
 }
 
+
+/*
+void	ft_print_list(t_ptr_lst ptr)
+{
+	ptr.lst_a = ft_lst_next_nb(ptr.lst_a);
+	ptr.lst_b = ft_lst_next_nb(ptr.lst_b);
+	printf("\naaaaaaaaaaaa\n");
+	while(ptr.lst_a)
+	{
+		printf("%d ", ptr.lst_a->nb);
+		ptr.lst_a=ptr.lst_a->prev;
+	}
+	printf("\nbbbbbbbbbbbbb\n");
+	while(ptr.lst_b)
+	{
+		printf("%d ", ptr.lst_b->nb);
+		ptr.lst_b=ptr.lst_b->prev;
+	}
+}*/
+#include <stdio.h>
+void	ft_print_list(t_ptr_lst ptr);
+
 t_ptr_lst		ft_push_swap(t_ptr_lst ptr)
 {
 	int		cmp;
 
-	if ((cmp = ft_cmp_gp(ptr.lst_a)) > 3)
+	printf("d;slkfjlkjj  %d \n", ptr.lst_a->nb);
+	cmp = ft_cmp_gp(ptr.lst_a);
+	if (cmp > 3)
 	{
 		ptr = ft_divise_avb(ptr, ptr.tab);
 		while ((cmp = ft_cmp_gp(ptr.lst_b)) > 3)
+		{
 			ptr = ft_divise_bva(ptr, ptr.tab);
+		}
 		ptr = ft_save_b(ptr, cmp);
-		ptr.tab += cmp;
 	}
 	else
-	{
 		ptr = ft_save_a(ptr, cmp);
-		ptr.tab += cmp;
-	}
+	printf("cmp %d", cmp);
+	ptr.tab += cmp;
+				
 	return (ptr);
 }
 

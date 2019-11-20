@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../includes/push_swap.h"
 
 int				ft_print_error(void)
 {
@@ -38,7 +38,7 @@ void			ft_instr(t_lst_instr *instr)
 		write(1, "rrb\n", 4);
 }
 
-t_lst_instr		*ft_print_instr(t_lst_instr *instr, int *tab)
+t_lst_instr		*ft_print_instr(t_lst_instr *instr)
 {
 	t_lst_instr	*save;
 
@@ -52,6 +52,5 @@ t_lst_instr		*ft_print_instr(t_lst_instr *instr, int *tab)
 			instr->prev = NULL;
 		free(save);
 	}
-	free(tab);
 	return (NULL);
 }

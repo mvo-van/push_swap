@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvo-van- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mvo-van- <mvo-van-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 17:09:47 by mvo-van-          #+#    #+#             */
-/*   Updated: 2019/11/14 17:15:10 by mvo-van-         ###   ########.fr       */
+/*   Updated: 2019/11/20 19:56:28 by mvo-van-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../includes/push_swap.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -106,6 +106,25 @@ int		ft_arg(t_ptr_lst ptr, char **av, int ac)
 	}
 	return (1);
 }
+#include <stdio.h>
+
+void	ft_print_list(t_ptr_lst ptr)
+{
+	ptr.lst_a = ft_lst_next_nb(ptr.lst_a);
+	ptr.lst_b = ft_lst_next_nb(ptr.lst_b);
+	printf("\naaaaaaaaaaaa\n");
+	while(ptr.lst_a)
+	{
+		printf("%d ", ptr.lst_a->nb);
+		ptr.lst_a=ptr.lst_a->prev;
+	}
+	printf("\nbbbbbbbbbbbbb\n");
+	while(ptr.lst_b)
+	{
+		printf("%d ", ptr.lst_b->nb);
+		ptr.lst_b=ptr.lst_b->prev;
+	}
+}
 
 int		main(int ac, char **av)
 {
@@ -126,12 +145,21 @@ int		main(int ac, char **av)
 	while (i < ac - 1)
 	{
 		ptr.lst_a = ft_creat_lst_nb(ptr.lst_a, ptr.tab[i]);
+		push_back(&ptr.la, ptr.tab[i]);
 		i++;
 	}
 	ft_sort_int(ptr.tab, i);
+	/*int g = 0;
 	while (ft_valide(ptr, i))
+	{
 		ptr = ft_push_swap(ptr);
-	ft_opti_instr(ptr.lst_flag);
-	ptr.lst_flag = ft_print_instr(ptr.lst_flag, ptr.tab);
+		ft_print_list(ptr);
+		if(g==4)
+			break;
+		g++;
+	}*/
+	qsort_la(&ptr.la, &ptr.lb, ptr.la.size);
+	/*ft_opti_instr(ptr.lst_flag);*/
+	//ptr.lst_flag = ft_print_instr(ptr.lst_flag);
 	return (0);
 }

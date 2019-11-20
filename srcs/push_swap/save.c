@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../includes/push_swap.h"
 
 t_ptr_lst	ft_save_a32(t_ptr_lst ptr, int o)
 {

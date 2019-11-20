@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../includes/push_swap.h"
 
 t_ptr_lst_instr		ft_opti_sa(t_ptr_lst_instr sav)
 {

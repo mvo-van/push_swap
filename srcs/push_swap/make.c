@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../includes/push_swap.h"
 
 t_ptr_lst	ft_make_p_nb(int flag, t_ptr_lst list)
 {

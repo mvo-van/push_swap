@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   count.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvo-van- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mvo-van- <mvo-van-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 19:27:56 by mvo-van-          #+#    #+#             */
-/*   Updated: 2019/11/14 19:37:43 by mvo-van-         ###   ########.fr       */
+/*   Updated: 2019/11/20 17:38:04 by mvo-van-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include <stdio.h>
+#include "../../includes/push_swap.h"
+#include "list.h"
 
 int			ft_cmp_gp(t_lst_nb *lst)
 {
@@ -18,7 +20,15 @@ int			ft_cmp_gp(t_lst_nb *lst)
 
 	lst = ft_lst_next_nb(lst);
 	if (!lst || lst->gp == 0)
+	{
+		if(lst)
+			printf("gp %d\n", lst->gp);
+		else
+		{
+			printf("NULL\n");
+		}
 		return (0);
+	}
 	cmp = 1;
 	while (lst->prev && lst->gp == lst->prev->gp)
 	{
@@ -59,6 +69,10 @@ t_ptr_lst	ft_t_ptr_lst_zero(void)
 {
 	t_ptr_lst	ptr;
 
+	ft_bzero(&ptr.la, sizeof(t_lst));
+	ft_bzero(&ptr.lb, sizeof(t_lst));
+	ptr.la.name = 'a';
+	ptr.lb.name = 'b';
 	ptr.lst_a = NULL;
 	ptr.lst_b = NULL;
 	ptr.lst_flag = NULL;

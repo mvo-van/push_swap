@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../includes/push_swap.h"
 #include <stdio.h>
 
 t_lst_nb		*ft_creat_lst_nb(t_lst_nb *lst_nb, int i)
