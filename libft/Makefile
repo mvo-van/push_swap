@@ -71,7 +71,8 @@ SRC	= ft_atoi.c \
 	  ft_abs.c \
 	  ft_isspace.c \
 	  ft_lstlen.c \
-	  ft_sort_int.c
+	  ft_sort_int.c \
+	  get_next_line.c \
 
 OBJ	= $(SRC:.c=.o)
 

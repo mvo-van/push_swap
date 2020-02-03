@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcat.c                                        :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvo-van- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mvo-van- <mvo-van-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/11 16:00:06 by mvo-van-          #+#    #+#             */
-/*   Updated: 2018/11/14 16:44:23 by mvo-van-         ###   ########.fr       */
+/*   Created: 2019/11/14 17:29:26 by mvo-van-          #+#    #+#             */
+/*   Updated: 2020/01/10 14:59:02 by mvo-van-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../../includes/checker.h"
 
-char	*ft_strcat(char *s1, const char *s2)
+int	ft_free(int *tab, int sav, char **av, int ac)
 {
-	size_t	len;
-	size_t	i;
-	char	*s22;
+	int	i;
 
-	s22 = (char *)s2;
-	len = ft_strlen(s1);
 	i = 0;
-	while (s22[i])
+	if (tab)
+		free(tab);
+	if (sav)
 	{
-		s1[len + i] = s22[i];
-		i++;
+		while (i < ac)
+		{
+			free(av[i]);
+			i++;
+		}
+		free(av);
 	}
-	s1[len + i] = '\0';
-	return (s1);
+	return (0);
 }

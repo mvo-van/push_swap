@@ -6,7 +6,7 @@
 /*   By: mvo-van- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/11 18:13:17 by mvo-van-          #+#    #+#             */
-/*   Updated: 2018/11/28 16:59:46 by mvo-van-         ###   ########.fr       */
+/*   Updated: 2019/11/15 18:37:30 by mvo-van-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ int				ft_abs(int n);
 int				ft_isspace(char c);
 size_t			ft_lstlen(t_list *lst);
 void			ft_sort_int(int *tab, size_t len);
+int				get_next_line(int fd, char **line);
 
 #endif

@@ -1,91 +1,106 @@
-#include "push_swap.h"
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   save.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvo-van- <mvo-van-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/14 18:23:48 by mvo-van-          #+#    #+#             */
+/*   Updated: 2019/12/04 16:00:58 by mvo-van-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-t_ptr_lst    ft_save_a2(t_ptr_lst ptr)
+#include "../../includes/push_swap.h"
+
+t_ptr_lst	ft_save_a32(t_ptr_lst ptr, int o)
 {
-    ft_gp_zero(ptr.lst_a, 2);
-    ptr.lst_a = ft_lst_next_nb(ptr.lst_a);
-    if(ptr.lst_a->nb > ptr.lst_a->prev->nb)
-        ptr = ft_make_instr(ptr, FLAG_SA);
-    ptr = ft_make_instr_times(ptr, FLAG_RA,2);
-    return(ptr);
+	if (o == 2)
+	{
+		ptr = ft_make_instr(ptr, FLAG_RA);
+		ptr = ft_make_instr(ptr, FLAG_SA);
+		ptr = ft_make_instr_times(ptr, FLAG_RA, 2);
+	}
+	else if (o == 4)
+	{
+		ptr = ft_make_instr(ptr, FLAG_PB);
+		ptr = ft_make_instr(ptr, FLAG_SA);
+		ptr = ft_make_instr(ptr, FLAG_RA);
+		ptr = ft_make_instr(ptr, FLAG_PA);
+		ptr = ft_make_instr_times(ptr, FLAG_RA, 2);
+	}
+	else
+	{
+		ptr = ft_make_instr(ptr, FLAG_PB);
+		if (o == 6)
+			ptr = ft_make_instr(ptr, FLAG_SA);
+		ptr = ft_make_instr_times(ptr, FLAG_RA, 2);
+		ptr = ft_make_instr(ptr, FLAG_PA);
+		ptr = ft_make_instr(ptr, FLAG_RA);
+	}
+	return (ptr);
 }
 
-t_ptr_lst    ft_save_a3(t_ptr_lst ptr)
+t_ptr_lst	ft_save_a3(t_ptr_lst ptr)
 {
-    int     ord;
+	int	o;
 
-    ft_gp_zero(ptr.lst_a, 3);
-    ptr.lst_a = ft_lst_next_nb(ptr.lst_a);
-    ord = ft_odre(ptr.lst_a->nb, ptr.lst_a->prev->nb, ptr.lst_a->prev->prev->nb);
-    if (ord == 1 || ord == 3)
-    {
-        if(ord == 3)
-            ptr = ft_make_instr(ptr, FLAG_SA);
-        ptr = ft_make_instr_times(ptr, FLAG_RA,3);
-    }
-    else if(ord == 2)
-    {
-        ptr = ft_make_instr(ptr, FLAG_RA);
-        ptr = ft_make_instr(ptr, FLAG_SA);
-        ptr = ft_make_instr_times(ptr, FLAG_RA,2);
-    }
-    else if(ord == 4)
-    {
-        ptr = ft_make_instr(ptr, FLAG_PB);
-        ptr = ft_make_instr(ptr, FLAG_SA);
-        ptr = ft_make_instr(ptr, FLAG_RA);
-        ptr = ft_make_instr(ptr, FLAG_PA);
-        ptr = ft_make_instr_times(ptr, FLAG_RA,2);
-    }
-    else
-    {
-        ptr = ft_make_instr(ptr, FLAG_PB);
-        if(ord == 6)
-            ptr = ft_make_instr(ptr, FLAG_SA);
-        ptr = ft_make_instr_times(ptr, FLAG_RA,2);
-        ptr = ft_make_instr(ptr, FLAG_PA);
-        ptr = ft_make_instr(ptr, FLAG_RA);
-    }
-    return(ptr);
+	ptr.lst_a = ft_lst_next_nb(ptr.lst_a);
+	o = ft_odre(ptr.lst_a->nb, ptr.lst_a->prev->nb, ptr.lst_a->prev->prev->nb);
+	if (o == 1 || o == 3)
+	{
+		if (o == 3)
+			ptr = ft_make_instr(ptr, FLAG_SA);
+		ptr = ft_make_instr_times(ptr, FLAG_RA, 3);
+	}
+	else
+		ptr = ft_save_a32(ptr, o);
+	return (ptr);
 }
 
-t_ptr_lst    ft_save_a(t_ptr_lst ptr, int cmp)
+t_ptr_lst	ft_save_a(t_ptr_lst ptr, int cmp)
 {
-    if(cmp == 1)
-    {
-        ft_gp_zero(ptr.lst_a, cmp);
-        ptr = ft_make_instr(ptr, FLAG_RA);
-    }
-    else if(cmp == 2)
-        ptr = ft_save_a2(ptr);
-    else if(cmp == 3)
-        ptr = ft_save_a3(ptr);
-    return(ptr);
+	ft_gp_zero(ptr.lst_a, cmp);
+	if (ft_cmp_lst_nb(ptr.lst_a) <= 3)
+		ptr = ft_save_a_seul(ptr, cmp);
+	else if (cmp == 1)
+		ptr = ft_make_instr(ptr, FLAG_RA);
+	else if (cmp == 2)
+	{
+		ptr.lst_a = ft_lst_next_nb(ptr.lst_a);
+		if (ptr.lst_a->nb > ptr.lst_a->prev->nb)
+			ptr = ft_make_instr(ptr, FLAG_SA);
+		ptr = ft_make_instr_times(ptr, FLAG_RA, 2);
+	}
+	else if (cmp == 3)
+		ptr = ft_save_a3(ptr);
+	ptr.tab += cmp;
+	return (ptr);
 }
 
-t_ptr_lst    ft_save_b3(t_ptr_lst ptr)
+t_ptr_lst	ft_save_b3(t_ptr_lst ptr)
 {
-    int     ord;
+	int	o;
 
-    ptr.lst_a = ft_lst_next_nb(ptr.lst_a);
-    ord = ft_odre(ptr.lst_a->nb, ptr.lst_a->prev->nb, ptr.lst_a->prev->prev->nb);
-    if (ord == 1 || ord == 3)
-        ptr = ft_make_instr(ptr, FLAG_RRB);
-    else if(ord == 2)
-        ptr = ft_make_instr(ptr, FLAG_RB);
-    ptr = ft_make_instr_times(ptr, FLAG_PA, 3);
-    return(ptr);
+	ptr.lst_b = ft_lst_next_nb(ptr.lst_b);
+	o = ft_odre(ptr.lst_b->nb, ptr.lst_b->prev->nb, ptr.lst_b->prev->prev->nb);
+	if (o == 1 || o == 3)
+		ptr = ft_make_instr(ptr, FLAG_RRB);
+	else if (o == 2)
+		ptr = ft_make_instr(ptr, FLAG_RB);
+	ptr = ft_make_instr_times(ptr, FLAG_PA, 3);
+	return (ptr);
 }
 
-t_ptr_lst    ft_save_b(t_ptr_lst ptr, int cmp)
+t_ptr_lst	ft_save_b(t_ptr_lst ptr, int cmp)
 {
-    if(cmp == 1)
-        ptr = ft_make_instr(ptr, FLAG_PA);
-    else if(cmp == 2)
-        ptr = ft_make_instr_times(ptr, FLAG_PA, 2);
-    else if(cmp == 3)
-        ptr = ft_save_b3(ptr);
-    ptr = ft_save_a(ptr, cmp);
-    return(ptr);
+	if (ft_cmp_lst_nb(ptr.lst_b) <= 3)
+		ptr = ft_save_b_seul(ptr, cmp);
+	else if (cmp == 1)
+		ptr = ft_make_instr(ptr, FLAG_PA);
+	else if (cmp == 2)
+		ptr = ft_make_instr_times(ptr, FLAG_PA, 2);
+	else if (cmp == 3)
+		ptr = ft_save_b3(ptr);
+	ptr = ft_save_a(ptr, cmp);
+	return (ptr);
 }
